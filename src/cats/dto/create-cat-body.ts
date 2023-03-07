@@ -10,4 +10,14 @@ export class CreateCatDTO {
     message: 'Ops, cat age is required',
   })
   age: number;
+
+  @IsNotEmpty({
+    message: 'Ops, owner Id is required',
+  })
+  ownerId: string;
+
+  @IsNotEmpty({
+    message: 'Ops, checkout is required in cats resort',
+  })
+  checkOut: string;
 }

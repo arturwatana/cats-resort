@@ -6,7 +6,7 @@ export type ICat = {
   age: number;
 };
 
-export class CatsRepository implements ICatsRepository {
+export class CatsMemoryRepository implements ICatsRepository {
   items: Cat[] = [];
   async showAll(): Promise<Cat[]> {
     return this.items;

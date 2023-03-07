@@ -1,10 +1,11 @@
 import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
-import { CreateCatDTO } from 'src/dto/create-cat-body';
+import { CreateCatDTO } from 'src/cats/dto/create-cat-body';
 import { Cat } from './entity/cat.entity';
-import { CatsRepository, ICat } from './Repositories/catsRepository.memory';
+import { ICat } from './entity/interface/ICat.interface';
+import { CatsMemoryRepository } from './Repositories/catsRepository.memory';
 import { AddNewCatUseCase } from './useCases/addNewCat.useCase';
 
-const catsRepository = new CatsRepository();
+const catsRepository = new CatsMemoryRepository();
 @Controller('cats')
 export class CatsController {
   @Post()
@@ -12,7 +13,6 @@ export class CatsController {
     const createCatUseCase = new AddNewCatUseCase(catsRepository);
     const data = body;
     const CreatedCat = await createCatUseCase.execute(data);
-    console.log(await catsRepository.showAll());
     return CreatedCat;
   }
 

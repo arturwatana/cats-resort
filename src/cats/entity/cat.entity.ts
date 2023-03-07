@@ -1,15 +1,22 @@
 import { randomUUID } from 'crypto';
-import { ICat } from '../Repositories/catsRepository.memory';
+import dayjs from 'dayjs';
+import { ICat } from './interface/ICat.interface';
 
 export class Cat {
   id: string;
   name: string;
   age: number;
+  ownerId: string;
+  checkIn: string;
+  checkOut: string;
 
-  private constructor({ name, age }: ICat) {
+  private constructor(data: ICat) {
     this.id = randomUUID();
-    this.name = name;
-    this.age = age;
+    this.name = data.name;
+    this.age = data.age;
+    this.ownerId = data.ownerId;
+    this.checkIn = dayjs().format('DD/MM/YYYY HH/MM/ss');
+    this.checkOut = data.checkOut;
   }
 
   static create(data: ICat) {
