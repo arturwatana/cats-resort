@@ -1,6 +1,9 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import dayjs from 'dayjs';
 import { ICat } from './interface/ICat.interface';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+dayjs.extend(customParseFormat);
 
 export class Cat {
   id: string;
@@ -11,18 +14,21 @@ export class Cat {
   checkOut: string;
 
   private constructor(data: ICat) {
+    const checkoutDate = dayjs(data.checkOut, 'DD/MM/YYYY');
+    const today = dayjs();
+    if (checkoutDate.isBefore(today, 'day')) {
+      throw new HttpException(
+        'Checkout must be after than checkIn',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     this.id = randomUUID();
     this.name = data.name;
     this.age = data.age;
     this.ownerId = data.ownerId;
-    this.checkIn = dayjs().format('DD/MM/YYYY hh:mm:ss');
-    this.checkOut = new Date(data.checkOut).toDateString();
-    if (dayjs(this.checkOut).isBefore(this.checkIn)) {
-      console.log('data menor do que de entrada');
-    }
-    console.log(this.checkOut);
-    console.log(this.checkIn);
-    console.log(dayjs(this.checkOut).isBefore(this.checkIn.split(' ')[0]));
+    this.checkIn = today.format('DD/MM/YYYY hh:mm:ss');
+    this.checkOut = checkoutDate.format('DD/MM/YYYY hh:mm:ss');
   }
 
   static create(data: ICat) {
