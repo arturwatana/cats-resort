@@ -8,6 +8,7 @@ import {
   Req,
 } from '@nestjs/common';
 import { CreateCatDTO } from 'src/cats/dto/create-cat-body';
+import { IOwnerRepository } from 'src/owners/repositories/interface/IOwner.repository';
 import { Cat } from './entity/cat.entity';
 import { ICat } from './entity/interface/ICat.interface';
 import { CatsMemoryRepository } from './Repositories/catsRepository.memory';
@@ -17,10 +18,16 @@ import { AddNewCatUseCase } from './useCases/addNewCat.useCase';
 @Injectable()
 @Controller('cats')
 export class CatsController {
-  constructor(private catsRepository: ICatsRepository) {}
+  constructor(
+    private catsRepository: ICatsRepository,
+    private ownersRepository: IOwnerRepository,
+  ) {}
   @Post()
   async create(@Body() body: CreateCatDTO): Promise<Cat> {
-    const createCatUseCase = new AddNewCatUseCase(this.catsRepository);
+    const createCatUseCase = new AddNewCatUseCase(
+      this.catsRepository,
+      this.ownersRepository,
+    );
     const data = body;
     const CreatedCat = await createCatUseCase.execute(data);
     return CreatedCat;
