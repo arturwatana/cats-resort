@@ -1,10 +1,7 @@
 import { Cat } from '../entity/cat.entity';
 import { ICatsRepository } from './interface/ICatsRepository';
 
-export type ICat = {
-  name: string;
-  age: number;
-};
+
 
 export class CatsMemoryRepository implements ICatsRepository {
   items: Cat[] = [];

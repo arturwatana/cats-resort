@@ -1,8 +1,8 @@
 import { Cat } from 'src/cats/entity/cat.entity';
-import { ICat } from '../catsRepository.memory';
+import { ICat } from 'src/cats/entity/interface/ICat.interface';
 
-export interface ICatsRepository {
-  save(cat: ICat): Promise<Cat>;
-  showAll(): Promise<ICat[]>;
-  findById(id: string): Promise<Cat | undefined>;
+export abstract class ICatsRepository {
+  abstract save(cat: ICat): Promise<Cat>;
+  abstract showAll(): Promise<Cat[]>;
+  abstract findById(id: string): Promise<Cat | undefined>;
 }

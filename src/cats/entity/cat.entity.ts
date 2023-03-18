@@ -15,8 +15,14 @@ export class Cat {
     this.name = data.name;
     this.age = data.age;
     this.ownerId = data.ownerId;
-    this.checkIn = dayjs().format('DD/MM/YYYY HH/MM/ss');
-    this.checkOut = data.checkOut;
+    this.checkIn = dayjs().format('DD/MM/YYYY hh:mm:ss');
+    this.checkOut = new Date(data.checkOut).toDateString();
+    if (dayjs(this.checkOut).isBefore(this.checkIn)) {
+      console.log('data menor do que de entrada');
+    }
+    console.log(this.checkOut);
+    console.log(this.checkIn);
+    console.log(dayjs(this.checkOut).isBefore(this.checkIn.split(' ')[0]));
   }
 
   static create(data: ICat) {
