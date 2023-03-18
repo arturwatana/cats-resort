@@ -8,4 +8,11 @@ export class OwnersMemoryRepository implements IOwnerRepository {
     this.items.push(data);
     return data;
   }
+  async findAllOwners(): Promise<Owner[]> {
+    return this.items;
+  }
+  async findById(id: string): Promise<Owner | null> {
+    const findedOwner = this.items.find((owner) => owner.id === id);
+    return findedOwner || null;
+  }
 }
