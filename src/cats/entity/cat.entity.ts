@@ -9,7 +9,7 @@ export class Cat {
   id: string;
   name: string;
   age: number;
-  ownerId: string;
+  ownerEmail: string;
   checkIn: string;
   checkOut: string;
 
@@ -26,7 +26,7 @@ export class Cat {
     this.id = randomUUID();
     this.name = data.name;
     this.age = data.age;
-    this.ownerId = data.ownerId;
+    this.ownerEmail = data.ownerEmail;
     this.checkIn = today.format('DD/MM/YYYY hh:mm:ss');
     this.checkOut = checkoutDate.format('DD/MM/YYYY hh:mm:ss');
   }

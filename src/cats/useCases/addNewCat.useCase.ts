@@ -11,11 +11,11 @@ export class AddNewCatUseCase {
   ) {}
   async execute(data: ICat) {
     const cat = Cat.create(data);
-    const catOwner = await this.ownersRepository.findById(cat.ownerId);
+    const catOwner = await this.ownersRepository.findByEmail(cat.ownerEmail);
     if (!catOwner) {
       throw new HttpException('Could not find owner', HttpStatus.BAD_REQUEST);
     }
-    this.catsRepository.save(cat);
-    return cat;
+    const savedCatInDB = await this.catsRepository.save(cat);
+    return savedCatInDB;
   }
 }

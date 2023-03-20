@@ -15,4 +15,8 @@ export class OwnersMemoryRepository implements IOwnerRepository {
     const findedOwner = this.items.find((owner) => owner.id === id);
     return findedOwner || null;
   }
+  async findByEmail(email: string): Promise<Owner | null> {
+    const findedOwner = this.items.find((owner) => owner.email === email);
+    return findedOwner || null;
+  }
 }

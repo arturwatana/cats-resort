@@ -10,4 +10,9 @@ export class CreateOwnerDTO {
     message: 'password is required',
   })
   password: string;
+
+  @IsNotEmpty({
+    message: 'email is required',
+  })
+  email: string;
 }

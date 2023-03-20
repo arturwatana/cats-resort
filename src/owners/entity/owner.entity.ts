@@ -12,13 +12,14 @@ export interface IContact {
 export class Owner {
   id: string;
   name: string;
+  email: string;
   password: string;
   createdAt: string;
 
   private constructor(data: IOwner) {
-    if (!data.name || !data.password) {
+    if (!data.name || !data.password || !data.email) {
       throw new HttpException(
-        'A owner must have a name and password',
+        'An owner must have a name, password or email',
         HttpStatus.BAD_REQUEST,
       );
     }
@@ -26,6 +27,7 @@ export class Owner {
     this.id = randomUUID();
     this.name = data.name;
     this.password = data.password;
+    this.email = data.email;
     this.createdAt = dayjs().format('DD/MM/YYYY HH:MM:ss');
   }
 

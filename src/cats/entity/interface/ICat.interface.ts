@@ -1,6 +1,6 @@
 export interface ICat {
   name: string;
   age: number;
-  ownerId: string;
+  ownerEmail: string;
   checkOut: string;
 }
