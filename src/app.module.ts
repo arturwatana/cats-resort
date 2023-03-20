@@ -7,6 +7,8 @@ import { ICatsRepository } from './cats/Repositories/interface/ICatsRepository';
 import { CatsMemoryRepository } from './cats/Repositories/catsRepository.memory';
 import { IOwnerRepository } from './owners/repositories/interface/IOwner.repository';
 import { OwnersMemoryRepository } from './owners/repositories/owners.memory.repository';
+import { IPasswordHash } from './utils/passwordHash/IPasswordHash.interface';
+import { PasswordBCryptHash } from './utils/passwordHash/implementations/bcrypt.implementation';
 @Module({
   imports: [],
   controllers: [AppController, CatsController, OwnersController],
@@ -19,6 +21,10 @@ import { OwnersMemoryRepository } from './owners/repositories/owners.memory.repo
     {
       provide: IOwnerRepository,
       useClass: OwnersMemoryRepository,
+    },
+    {
+      provide: IPasswordHash,
+      useClass: PasswordBCryptHash,
     },
   ],
 })
