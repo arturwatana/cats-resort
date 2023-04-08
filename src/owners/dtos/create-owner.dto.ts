@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { IContact } from 'src/users/entity/user.entity';
 
 export class CreateOwnerDTO {
   @IsNotEmpty({
@@ -15,4 +16,9 @@ export class CreateOwnerDTO {
     message: 'email is required',
   })
   email: string;
+
+  @IsNotEmpty({
+    message: 'at least one contact is required',
+  })
+  contact: IContact[];
 }

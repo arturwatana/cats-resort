@@ -1,19 +1,15 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import dayjs from 'dayjs';
-import { ICat } from 'src/cats/entity/interface/ICat.interface';
 import { IOwner } from './interface/IOwner.interface';
-
-export interface IContact {
-  adress: string;
-  phoneNumber: string;
-}
+import { IContact } from 'src/users/entity/user.entity';
 
 export class Owner {
   id: string;
   name: string;
   email: string;
-  password: string;
+  contact: IContact[];
+  user_id?: string;
   createdAt: string;
 
   private constructor(data: IOwner) {
@@ -26,8 +22,9 @@ export class Owner {
 
     this.id = randomUUID();
     this.name = data.name;
-    this.password = data.password;
     this.email = data.email;
+    this.user_id = data.user_id;
+    this.contact = data.contact;
     this.createdAt = dayjs().format('DD/MM/YYYY HH:MM:ss');
   }
 
