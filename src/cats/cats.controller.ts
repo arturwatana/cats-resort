@@ -1,17 +1,7 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Injectable,
-  Param,
-  Post,
-  Req,
-} from '@nestjs/common';
+import { Body, Controller, Get, Injectable, Param, Post } from '@nestjs/common';
 import { CreateCatDTO } from 'src/cats/dto/create-cat-body';
 import { IOwnerRepository } from 'src/owners/repositories/interface/IOwner.repository';
 import { Cat } from './entity/cat.entity';
-import { ICat } from './entity/interface/ICat.interface';
-import { CatsMemoryRepository } from './Repositories/catsRepository.memory';
 import { ICatsRepository } from './Repositories/interface/ICatsRepository';
 import { AddNewCatUseCase } from './useCases/addNewCat.useCase';
 
