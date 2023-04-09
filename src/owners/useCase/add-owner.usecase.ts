@@ -26,7 +26,7 @@ export class AddNewOwnerUseCase {
     }
     const ownerCreated = Owner.create(data);
     const addresses: Address[] = [];
-    if (data.contact.length <= 1) {
+    if (data.contact.length >= 1) {
       for (let i = 0; i < data.contact.length; i++) {
         const address = Address.create({
           ...data.contact[i],
@@ -34,7 +34,8 @@ export class AddNewOwnerUseCase {
         });
         addresses.push(address);
       }
-      await this.addressRepository.save(addresses);
+      const addressesSavedInDB = await this.addressRepository.save(addresses);
+      console.log(addressesSavedInDB);
       userCreated.contact = addresses;
     }
     const passwordHashed = await this.passwordHash.hash(userCreated.password);
